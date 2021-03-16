@@ -1,10 +1,11 @@
 const express = require ('express')
 
+const router = express.Router();
+
 const burger = require('../models/burger.js')
 
+router.get('/', (req,res) =>{
 
-// CREATE ROUTER FOR APP, EXXPORT ROUTER at end of file
-
-
+})
 
 module.exports 
