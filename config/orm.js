@@ -1,26 +1,31 @@
 const db = require('./connection')('burger_db', "password")
 
- 
-const selectAll = async () => {
-    const burger = await db.query("SELECT * FROM burgers")
+var orm = { 
+ selectAll:  (cb) =>{
+    const burger = db.query("SELECT * FROM burgers")
 
     return burger
-}
+},
 
-const insertOne = async () => {
-    const addBurger = await db.query("INSERT INTO burgers VALUES (0,?,?)", [input.burgerName, false])
+ insertOne:(input,cb) =>{
+     console.log(input)
+    const addBurger =db.query("INSERT INTO burgers VALUES (0,?,?)", [input, false])
 
     return addBurger
-}
+},
 
-const updateOne = async (id) => {
+ updateOne: async (id) => {
     let update = await db.query(`UPDATE burgers SET devoured = true WHERE id = ${id}`)
 
     let update2 = await db.query(`SELECT * FROM burgers WHERE devoured = true`)
 
     return update2
-}
+},
+deleteOne: async (id) => {
 
+    const deleteBurger = await db.query(`DELETE FROM burgers WHERE id = ${id}`)
+}
+}
 
   module.exports = orm;
 
