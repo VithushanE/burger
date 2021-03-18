@@ -17,12 +17,44 @@ router.get('/', (req, res) =>{
 });
 
 router.post('/api/burger', (req,res) => {
-    burger.create(['burger_name', 'is_devoured' ], req.body.burger_name, req.body.is_devoured), (result) =>{
+    burger.create(['burger_name', 'is_devoured' ], [req.body.burger_name, req.body.is_devoured], (result) =>{
       
         res.json({id: result.insertId});
+    });
+});
 
-    }
-})
+router.put('/api/burgers/:id', (req,res) => {
+    const condition = `id = ${req.params.id}`; 
+
+    console.log('condition', condition); 
+
+   burger.update({
+       is_devoured: req.body.is_devoured,
+   }, 
+   condition, 
+   (result)=> {
+       if (result.changedRows === 0) {
+           return res.status(404).end();
+       }
+       res.status(200).end();
+   }
+   ); 
+}); 
+
+
+router.delete('/api/burgers/:id', (req,res) =>{
+    const condition = `id = ${req.params.id}`;
+
+    burger.delete(condition, (result) =>{
+        if(result.affectedRows === 0) {
+            return res.status(404).end();
+        }
+        res.status(200).end();
+    });
+});
+
+module.exports = router;
+
 
 
 // // const orm = require("../config/orm")
@@ -122,11 +154,11 @@ router.post('/api/burger', (req,res) => {
 
 // module.exports =router; 
 
-const express = require ('express')
+// const express = require ('express')
 
-const router = express.Router();
+// const router = express.Router();
 
-const orm = require("../config/orm")
+// const orm = require("../config/orm")
 
 // router.get('/', async (req,res) =>{
 //     const burger = await orm.selectAll()
@@ -159,4 +191,4 @@ const orm = require("../config/orm")
 //     res.status(200).end();
 // })
 
-module.exports =router; 
+// module.exports =router; 
