@@ -1,59 +1,76 @@
 const express = require ('express')
-
 const router = express.Router();
-
 // Importing model burger.js 
 const burger = require('../models/burger.js');
 
 // Creating routes within these routes
+
+//Receiving all burger inputs 
 router.get('/', (req, res) =>{
-    burger.all((data)=>{
-        const hbsObject ={
-            burgers:data,
-        };
-        console.log(hbsObject); 
+    burger.all((data) => {
+        const hbsObject = {burger: data}; 
+        console.log(hbsObject)
         res.render('index', hbsObject);
     });
 });
 
-router.post('/api/burger', (req,res) => {
-    burger.create(['burger_name', 'is_devoured' ], [req.body.burger_name, req.body.is_devoured], (result) =>{
-      
-        res.json({id: result.insertId});
+router.post('/api/burger/create', async  (req,res) => {
+    burger.insert(req.body.burger_name, () => {
+        console.log('Insert working')
+        res.redirect('/')
+    }); 
+});
+
+router.post('/api/burger/update', async (req,res) => {
+    burger.update(req.params.id, function () {
+        res.redirect('/')
     });
 });
 
-router.put('/api/burgers/:id', (req,res) => {
-    const condition = `id = ${req.params.id}`; 
-
-    console.log('condition', condition); 
-
-   burger.update({
-       is_devoured: req.body.is_devoured,
-   }, 
-   condition, 
-   (result)=> {
-       if (result.changedRows === 0) {
-           return res.status(404).end();
-       }
-       res.status(200).end();
-   }
-   ); 
-}); 
-
-
 router.delete('/api/burgers/:id', (req,res) =>{
-    const condition = `id = ${req.params.id}`;
-
-    burger.delete(condition, (result) =>{
-        if(result.affectedRows === 0) {
-            return res.status(404).end();
-        }
-        res.status(200).end();
+    burger.delete(req.params.id, function () {
+        res.redirect('/')
     });
 });
 
 module.exports = router;
+
+
+
+
+
+
+// router.put('/api/burgers/:id', (req,res) => {
+//     const condition = `id = ${req.params.id}`; 
+
+//     console.log('condition', condition); 
+
+//    burger.update({
+//        is_devoured: req.body.is_devoured,
+//    }, 
+//    condition, 
+//    (result)=> {
+//        if (result.changedRows === 0) {
+//            return res.status(404).end();
+//        }
+//        res.status(200).end();
+//    }
+//    ); 
+// }); 
+
+
+// router.delete('/api/burgers/:id', (req,res) =>{
+//     const condition = `id = ${req.params.id}`;
+
+//     burger.delete(condition, (result) =>{
+//         if(result.affectedRows === 0) {
+//             return res.status(404).end();
+//         }
+//         res.status(200).end();
+//     });
+// });
+
+// module.exports = router;
 
 
 
@@ -79,13 +96,13 @@ module.exports = router;
 // });
 
 
-router.post('/api/create/', async (req,res) =>{
-    let input = req.body.name
-    console.log(input)
-    let result = await orm.insertOne(input)
-    console.log(result)
-    res.redirect('/')
-})
+// router.post('/api/create/', async (req,res) =>{
+//     let input = req.body.name
+//     console.log(input)
+//     let result = await orm.insertOne(input)
+//     console.log(result)
+//     res.redirect('/')
+// })
 
 // router.post('/api/burgers/',  (req,res) =>{
    

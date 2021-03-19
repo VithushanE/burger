@@ -1,86 +1,93 @@
+// const orm = require('../../burgerApp/Solved/config/orm');
+
 const db= require('./connection')('burger_db', "password")
 
-// const printQuestionMarks = (num) => {
-//     const arr = [];
-  
-//     for (let i = 0; i < num; i++) {
-//       arr.push('?');
-//     }
-  
-//     return arr.toString();
-//   };
-  
-//   const objToSql = (ob) => {
-//     const arr = [];
-  
-  
-//     for (const key in ob) {
-//       let value = ob[key];
-     
-//       if (Object.hasOwnProperty.call(ob, key)) {
-       
-//         if (typeof value === 'string' && value.indexOf(' ') >= 0) {
-//           value = `'${value}'`;
-//         }
-       
-//         arr.push(`${key}=${value}`);
-//       }
-//     }
-  
-    
-//     return arr.toString();
-//   };
-  
-  const orm = {
+    // const orm = {
+   // Selecting all 
+//    all: function (cb) {
+//     db.query("SELECT * FROM burgers", function (err,result) {
+//         if (err) throw err;
+//         cb(result);
+//     });
+//    },
 
-   // Selecting all CHECK IF ARROW FUNCTION WORKS 
-   all: (cb) => {
-
-    db.query("SELECT * FROM burger" () = (err,result) => {
-        if (err) {
-            throw err;
-          }
-        cb(result);
-    });
-   },
-   
     // To insert 
 
-   insert: (burger_name, cb) =>{
-       const insertQuery = `INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false)`;
-        db.query(this.insertQuery, function (err, result) {
-            if (err) {
-                throw err;
-              }
-            cb(result);
-        });
-   },
+//    insert: (burger_name, cb) =>{
+//        const insertQuery = `INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false)`;
+//         db.query(this.insertQuery, function (err, result) {
+//             if (err) {
+//                 throw err;
+//               }
+//             cb(result);
+//         });
+//    },
 
-      update: (burgerID, cb) => {
-        const updateQuery = `UPDATE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
-        db.query(this.updateQuery, function (err, result) {
-            if (err) {
-                throw err;
-              }
-            cb(result);
-        });
+//       update: (burgerID, cb) => {
+//         const updateQuery = `UPDATE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
+//         db.query(this.updateQuery, function (err, result) {
+//             if (err) {
+//                 throw err;
+//               }
+//             cb(result);
+//         });
 
 
-      },
+//       },
 
       // To Delete 
-      delete:(burgerID, cb) =>{
-          const deleteQuery = `DELETE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
-          db.query(this.updateQuery, function (err, result) {
-            if (err) {
-                throw err;
-              }
-            cb(result);
-        });
+    //   delete:(burgerID, cb) =>{
+    //       const deleteQuery = `DELETE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
+    //       db.query(this.updateQuery, function (err, result) {
+    //         if (err) {
+    //             throw err;
+    //           }
+    //         cb(result);
+    //     });
 
-      }
+    //   }
 
-    };
+    // };
 
+
+
+ //Step 1: declare orm in const variable, and put the functions in it.
+
+
+ const orm = {
+
+// Selecting all 
+
+all: function selectAll( result) {
+   var result =  db.query("SELECT * FROM burgers") 
+    console.table(result)
+    return (result)
+}, 
+
+//updating 
+
+update: function updateBurger(){
+    var result2 = db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
+    console.log(result2)
+    return result2
+},
+
+//deleting
+
+delete: function deleteBurger(){
+    var result3 = db.query( `DELETE FROM burgers WHERE id = ${id} ;`)
+    console.log(result3)
+    return result3
+},
+
+//creating 
+
+create: function createBurger(){
+    var result4 = db.query(`INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false);`)
+    console.log(result4)
+    return result4
+}
+}
+  
   module.exports = orm;
 

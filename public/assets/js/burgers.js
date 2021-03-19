@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 burger_name: document.getElementById('ca').value.trim(),
             }
 
-            fetch(`/api/burger`, {
+            fetch(`/api/burger/create`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
