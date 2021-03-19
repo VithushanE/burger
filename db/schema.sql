@@ -5,9 +5,10 @@ USE  burger_db;
 
 DROP TABLE IF EXISTS burgers; 
 CREATE TABLE burgers (
-id INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
+id int NOT NULL AUTO_INCREMENT,
 burger_name VARCHAR (30), 
 is_devoured BOOLEAN DEFAULT false,
+PRIMARY KEY(id)
 );
 
 SELECT * FROM burgers; 

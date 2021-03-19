@@ -79,13 +79,13 @@ module.exports = router;
 // });
 
 
-// // router.post('/api/create/', async (req,res) =>{
-// //     let input = req.body.name
-// //     console.log(input)
-// //     let result = await orm.insertOne(input)
-// //     console.log(result)
-// //     res.redirect('/')
-// // })
+router.post('/api/create/', async (req,res) =>{
+    let input = req.body.name
+    console.log(input)
+    let result = await orm.insertOne(input)
+    console.log(result)
+    res.redirect('/')
+})
 
 // router.post('/api/burgers/',  (req,res) =>{
    

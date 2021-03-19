@@ -1,66 +1,92 @@
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     if (event) {
-//         console.info('DOM loaded');
-//     }
-
-// const { delete } = require("../../../controllers/burgers_controller")
-
-    // UPDATE  
-    // const changeToDevoured = document.querySelectorAll('.change-burger')
-
-    // if(changeToDevoured){
-    //     changeToDevoured.forEach((button) => {
-    //         button.addEventListener('click,' (e) => { 
-    //             const id = e.target.getAttribute('id'); 
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (event) {
+        console.info('DOM loaded');
+    }
 
 
-    //             fetch(`api/burgers/${id}`, {
-    //                 method: 'PUT', 
-    //                 headers: {
-    //                     'application/json',
-    //         'Content-Type': 'application/json',
-    //             },
-           
-    //         });
-    //     })
-    // }
+    // Creating a burger 
+
+    const createBurgerBtn = document.getElementById('create-form');
+
+    if (createBurgerBtn) {
+        createBurgerBtn.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const newBurger = {
+                burger_name: document.getElementById('ca').value.trim(),
+            }
+
+            fetch(`/api/burger`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(newBurger),
+            }).then(() => {
+                document.getElementById('ca').value = '';
+
+                console.log('Created new Burger!')
+                location.reload();
+            })
+
+        })
+    }
+
+    // Updating the burger
+
+    const changeDevourBtn = document.querySelectorAll('.change-burger')
+
+    if (changeSleepBtns) {
+        changeSleepBtns.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                const newBurger = e.target.getAttribute('data-newburger')
+
+                const newBurgerState = {
+                    is_devoured = newBurger,
+                };
+
+                fetch(`/api/burgers/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(newBurgerState),
+                }).then((response) => {
+                    if (response.ok) {
+                        console.log(`changed burger to ${newBurger}`);
+                        location.reload('/');
+                    } else {
+                        alert('something went wrong!')
+                    }
+                })
+
+            })
+        })
+    }
 
 
-    // DELETE 
-    // function deleteBurger(id){
-    //     fetch(`api/burgers/${id}`, {
-    //         method: 'DELETE',
-    //     }).then((res) => {
-    //         console.log(res);
-    //         console.log(`Deleted Burger: ${id}`);
-    //       }
-        
-    // const updateBurgerBtns = document.querySelectorAll('.change-burger');
+    // Deleting a burger
 
-    // updateBurgerBtns.forEach((button) => {
-    //     button.addEventListener('click', (e) => {
-    //         const id = e.target.getAttribute('data-id');
+    const deleteBurgerBtn = document.querySelectorAll('.delete-burger');
 
-    //         // Send the delete request 
-    //         fetch(`api/burgers/${id}`, {
-    //             method: 'PUT',
-    //         }).then((res) => {
-    //             console.log(res);
-    //             console.log(`Devoured Burger: ${id}`);
+    deleteBurgerBtn.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            const id = e.target.getAttribute('data-id');
 
-    //             // Reload the page 
-    //             location.reload();
-    //         });
-    //     });
-    // });
+            fetch(`/api/burgers/${id}`, {
+                method: 'DELETE',
+            }).then((res) => {
+                console.log(res);
+                console.log(`Deleted burger: ${id}`);
+
+                location.reload();
+            })
+        })
+    })
+})
 
 
-// DELETE BUTTON 
-
-// function deleteBurger() {
-// var deleteBtn = document.querySelectorAll('delete-burger')
-
-// deleteBtn.addClassList('display-none')
-
-
-// }

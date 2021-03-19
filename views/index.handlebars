@@ -1,33 +1,15 @@
 <h1>Burger App!</h1>
 
-<div class="container" id="getEaten">
-
   <h2>Burgers that need to be eaten!</h2>
 
-  <div class="container">
-
-    <form action="api/burgers/:id" method="UPDATE">
     <ul>
       {{#each burger}}
       {{#unless this.is_devoured}}
       {{!-- {{>burger/burger-block devoured=false}} --}}
-      <li>
-        {{this.burger_name}}
-
-        <button class="change-burger" type="submit" data-id="{{this.id}}" data-burger="{{this.burger_name}}">
-          Devour now!
-        </button>
-
-        {{!-- <button type="submit" class="delete-burger" data-id="{{this.id}}" onclick="deleteBurger()">DELETE!</button> --}}
-      </li>
-     
       {{/unless}}
       {{/each}}
     </ul>
-    </form>
-</div>
 
-<div class="container">
     <h2>Burgers that got me full! </h2>
 
     <ul>
@@ -45,19 +27,17 @@
 
     <h2>Add a burger!</h2>
 
-    <form action="/api/create/" method="POST">
+    <form id="create-form">
 
       <div class="form-group">
         <label for="ca">Burger Name</label>
         <input type="text" id="ca" name="name">
-
- 
       </div>
 
 
       <button type="submit">Add Burger!</button>
     </form>
-  </div>
+  
 
-</div>
+
 
