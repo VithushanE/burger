@@ -1,103 +1,85 @@
-const connection = require("../config/connection");
+const db= require('./connection')('burger_db', "password")
 
-const printQuestionMarks = (num) => {
-    const arr = [];
+// const printQuestionMarks = (num) => {
+//     const arr = [];
   
-    for (let i = 0; i < num; i++) {
-      arr.push('?');
-    }
+//     for (let i = 0; i < num; i++) {
+//       arr.push('?');
+//     }
   
-    return arr.toString();
-  };
+//     return arr.toString();
+//   };
   
-  const objToSql = (ob) => {
-    const arr = [];
+//   const objToSql = (ob) => {
+//     const arr = [];
   
   
-    for (const key in ob) {
-      let value = ob[key];
+//     for (const key in ob) {
+//       let value = ob[key];
      
-      if (Object.hasOwnProperty.call(ob, key)) {
+//       if (Object.hasOwnProperty.call(ob, key)) {
        
-        if (typeof value === 'string' && value.indexOf(' ') >= 0) {
-          value = `'${value}'`;
-        }
+//         if (typeof value === 'string' && value.indexOf(' ') >= 0) {
+//           value = `'${value}'`;
+//         }
        
-        arr.push(`${key}=${value}`);
-      }
-    }
+//         arr.push(`${key}=${value}`);
+//       }
+//     }
   
     
-    return arr.toString();
-  };
+//     return arr.toString();
+//   };
   
   const orm = {
-    all(tableInput, cb) {
-      const queryString = `SELECT * FROM ${tableInput};`;
-      connection.query(queryString, (err, result) => {
+
+   // Selecting all CHECK IF ARROW FUNCTION WORKS 
+   all: (cb) => {
+
+    db.query("SELECT * FROM burger" () = (err,result) => {
         if (err) {
-          throw err;
-        }
+            throw err;
+          }
         cb(result);
-      });
-    },
-
+    });
+   },
+   
     // To insert 
-    create(table, cols, vals, cb) {
-        let queryString = `INSERT INTO ${table}`;
-    
-        queryString += ' (';
-        queryString += cols.toString();
-        queryString += ') ';
-        queryString += 'VALUES (';
-        queryString += printQuestionMarks(vals.length);
-        queryString += ') ';
-    
-        console.log(queryString);
-    
-       connection.query(queryString, vals, (err, result) => {
-          if (err) {
-            throw err;
-          }
-    
-          cb(result);
-        });
-      },
 
-// To update 
-      update(table, objColVals, condition, cb) {
-        let queryString = `UPDATE ${table}`;
-    
-        queryString += ' SET ';
-        queryString += objToSql(objColVals);
-        queryString += ' WHERE ';
-        queryString += condition;
-    
-        console.log(queryString);
-        connection.query(queryString, (err, result) => {
-          if (err) {
-            throw err;
-          }
-    
-          cb(result);
+   insert: (burger_name, cb) =>{
+       const insertQuery = `INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false)`;
+        db.query(this.insertQuery, function (err, result) {
+            if (err) {
+                throw err;
+              }
+            cb(result);
         });
+   },
+
+      update: (burgerID, cb) => {
+        const updateQuery = `UPDATE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
+        db.query(this.updateQuery, function (err, result) {
+            if (err) {
+                throw err;
+              }
+            cb(result);
+        });
+
+
       },
-    
 
       // To Delete 
-      delete(table, condition, cb) {
-        let queryString = `DELETE FROM ${table}`;
-        queryString += ' WHERE ';
-        queryString += condition;
-    
-        connection.query(queryString, (err, result) => {
-          if (err) {
-            throw err;
-          }
-    
-          cb(result);
+      delete:(burgerID, cb) =>{
+          const deleteQuery = `DELETE burgers SET is_devoured = true WHERE id = ${burgerID} ;`
+          db.query(this.updateQuery, function (err, result) {
+            if (err) {
+                throw err;
+              }
+            cb(result);
         });
-      },
+
+      }
+
     };
 
   module.exports = orm;
