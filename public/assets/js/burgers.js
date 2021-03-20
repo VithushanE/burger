@@ -96,16 +96,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // })
 
 
-    const deleteBurgerBtn = document.querySelectorAll('.delete-burger');
+    const deleteBurgerBtn = document.querySelectorAll('.delete-form');
 
     deleteBurgerBtn.forEach((button) => {
         button.addEventListener('click', (e) => {
-            const id = e.target.getAttribute('data-id');
+            const id = e.target.getAttribute('dl');
 
             fetch(`api/burger/delete/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    Accept: 'application/json', 
+                    'content-type': 'application/json',
+                }, 
+
+                body: JSON.stringify(id),
+
             }).then((res) => {
                 console.log(res);
+                document.getElementById('dl').value= '';
+                
                 console.log(`Deleted burger: ${id}`);
 
                 location.reload();

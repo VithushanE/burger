@@ -20,19 +20,19 @@
     </ul>
 
     <h2>Burgers that got me full! </h2>
-<form id="delete-form" method="DELETE" action="api/burger/delete/:id">
+<form id="delete-form" method="delete" action="api/burger/delete/">
     <ul id="delete-list">
       
       {{#each burger}}
       {{#if this.is_devoured}}
-      <li>
+      <li id="dl" >
         {{this.burger_name}}
      
 
 
 
 
-       {{!-- <a href="api/burger/delete/:id"><button class="delete-burger" onclick={{test}} data-id="{{this.id}}">DELETE!</button></a> --}}
+<button class="delete-burger" data-id="{{this.id}}">DELETE!</button>
       </li>
       {{/if}}
       {{/each}}
