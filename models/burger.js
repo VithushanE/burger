@@ -1,25 +1,25 @@
 // // Have to import ORM 
 
-const orm = require ('../config/orm.js');
+// const orm = require ('../config/orm.js');
 
-const burger = {
-    all: (cb) => {
-      orm.all('burgers', (res) => cb(res));
-    },
+// const burger = {
+//     all: (cb) => {
+//       orm.all('burgers', (res) => cb(res));
+//     },
     // The variables cols and vals are arrays.
-    create: (burger_name, cb) => {
-      orm.create(burger_name , (res) => cb(res));
-    },
-    update: (burgerID, cb) => {
-      orm.update( burgerID, (res) => cb(res));
-    },
-    delete(burgerID, cb) {
-      orm.delete( burgerID, (res) => cb(res));
-    },
-  };
+    // create: (burger_name, cb) => {
+    //   orm.create(burger_name , (res) => cb(res));
+    // },
+    // update: (burgerID, cb) => {
+    //   orm.update( burgerID, (res) => cb(res));
+    // },
+    // delete(burgerID, cb) {
+    //   orm.delete( burgerID, (res) => cb(res));
+    // },
+//   };
   
   // Export the database functions for the controller (catsController.js).
-  module.exports = burger;
+//   module.exports = burger;
   
 
 
@@ -61,7 +61,7 @@ const burger = {
     //     orm.insertOne(burger_name, (res)=> cb(res));
     // }, 
 
-    // updateOne: async function (burger_id, (cb){
+    // updateOne(cb){: async function (burger_id, (cb){
     //     orm.updateOne(burger_id, (res) => cb(res));
     // },
     

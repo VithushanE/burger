@@ -1,39 +1,41 @@
-const express = require ('express')
-const router = express.Router();
+// 
+// const express = require ('express');
+// const orm = require('../config/orm.js');
+// const router = express.Router();
 // Importing model burger.js 
 const burger = require('../models/burger.js');
 
 // Creating routes within these routes
 
 //Receiving all burger inputs 
-router.get('/', (req, res) =>{
-    burger.all((data) => {
-        const hbsObject = {burger: data}; 
-        console.log(hbsObject)
-        res.render('index', hbsObject);
-    });
-});
+// router.get('/', (req, res) =>{
+//     orm.all((data) => {
+//         const hbsObject = {burger: data}; 
+//         console.log(hbsObject)
+//         res.render('index', hbsObject);
+//     });
+// });
 
-router.post('/api/burger/create', async  (req,res) => {
-    burger.insert(req.body.burger_name, () => {
-        console.log('Insert working')
-        res.redirect('/')
-    }); 
-});
+// router.post('/api/burger/create', async  (req,res) => {
+//     burger.insert(req.body.burger_name, () => {
+//         console.log('Insert working')
+//         res.redirect('/')
+//     }); 
+// });
 
-router.post('/api/burger/update', async (req,res) => {
-    burger.update(req.params.id, function () {
-        res.redirect('/')
-    });
-});
+// router.post('/api/burger/update', async (req,res) => {
+//     burger.update(req.params.id, function () {
+//         res.redirect('/')
+//     });
+// });
 
-router.delete('/api/burgers/:id', (req,res) =>{
-    burger.delete(req.params.id, function () {
-        res.redirect('/')
-    });
-});
+// router.delete('/api/burgers/:id', (req,res) =>{
+//     burger.delete(req.params.id, function () {
+//         res.redirect('/')
+//     });
+// });
 
-module.exports = router;
+// module.exports = router;
 
 
 
@@ -171,41 +173,49 @@ module.exports = router;
 
 // module.exports =router; 
 
-// const express = require ('express')
+const express = require ('express')
 
-// const router = express.Router();
+const router = express.Router();
 
-// const orm = require("../config/orm")
+const orm = require("../config/orm")
 
-// router.get('/', async (req,res) =>{
-//     const burger = await orm.selectAll()
-//      console.log(burger)
+router.get('/', async (req,res) =>{
+    const burger = await orm.selectAll()
+     console.log(burger)
 
-//      res.render('index',{burger:burger})
+     res.render('index',{burger:burger})
 
-// })
+})
 
-// router.post('/api/create', async (req,res) =>{
-//     let input = req.body.name
-//     console.log(input)
-//     let result = await orm.insertOne(input)
-//     console.log(result)
-//     res.redirect('/')
-// })
+router.post('/api/create', async (req,res) =>{
+    let input = req.body.name
+    console.log(input)
+    let result = await orm.insertOne(input)
+    console.log(result)
+    res.redirect('/')
+})
 
-// router.post('/api/burger/:id', async (req, res)=>{
-//     const id = req.params.id 
+router.post('/api/burger/id', async (req, res)=>{
+    const id = req.params.id 
 
-//     const updateBurger = await orm.updateOne(id)
+    const updateBurger = await orm.updateOne(id)
 
-//     res.redirect('/')
-// })
+    res.redirect('/')
+})
 
-// router.delete('api/burger/:id', async (req,res) =>{
-//     if (result.affectedRows === 0){
-//         return res.status(404).end();
-//     }
-//     res.status(200).end();
-// })
+router.delete(`api/burger/delete/id`, async (req,res) =>{
+    const id = req.params.id
+    const deleteBurger = await orm.delete(id)
+    console.log(deleteBurger)
 
-// module.exports =router; 
+    // res.render('index',{burger:burger})
+    
+    res.redirect('/')
+
+    if (result.affectedRows === 0){
+        return res.status(404).end();
+    }
+    res.status(200).end();
+})
+
+module.exports =router; 

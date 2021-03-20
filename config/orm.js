@@ -58,19 +58,19 @@ const db= require('./connection')('burger_db', "password")
 
 // Selecting all 
 
-all: function selectAll( result) {
-   var result =  db.query("SELECT * FROM burgers") 
-    console.table(result)
-    return (result)
+selectAll: function selectAll() {
+//    var result =  db.query("SELECT * FROM burgers") 
+//     console.table(result)
+    return  db.query("SELECT * FROM burgers") 
 }, 
 
 //updating 
 
-update: function updateBurger(){
-    var result2 = db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
-    console.log(result2)
-    return result2
-},
+// update: function updateBurger(){
+//     var result2 = db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
+    
+//     return result2
+// },
 
 //deleting
 
@@ -82,11 +82,11 @@ delete: function deleteBurger(){
 
 //creating 
 
-create: function createBurger(){
-    var result4 = db.query(`INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false);`)
-    console.log(result4)
-    return result4
-}
+// create: function createBurger(){
+//     var result4 = db.query(`INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false);`)
+//     console.log(result4)
+//     return result4
+// }
 }
   
   module.exports = orm;
