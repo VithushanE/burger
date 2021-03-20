@@ -182,24 +182,27 @@ const orm = require("../config/orm")
 router.get('/', async (req,res) =>{
     const burger = await orm.selectAll()
      console.log(burger)
-
      res.render('index',{burger:burger})
 
 })
 
-router.post('/api/create', async (req,res) =>{
+router.post('/api/burger/create', async (req,res) =>{
     let input = req.body.name
     console.log(input)
-    let result = await orm.insertOne(input)
-    console.log(result)
+    const newBurger= await orm.create(input)
+    const burger = await orm.selectAll()
+    res.render('index', {burger: newBurger}  )
+   
     res.redirect('/')
 })
 
 router.post('/api/burger/id', async (req, res)=>{
     const id = req.params.id 
-
-    const updateBurger = await orm.updateOne(id)
-
+    console.log(id)
+    const updateBurger = await orm.update(id)
+    const burger = await orm.selectAll()
+    res.render('index', {burger: updateBurger}  )
+   
     res.redirect('/')
 })
 

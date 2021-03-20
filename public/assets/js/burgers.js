@@ -6,9 +6,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Creating a burger 
 
+// const createBurger = document.getElementById('create-form'); 
+
+
+// const newBurger = document.getElementById('ca').value
+
+
+
     const createBurgerBtn = document.getElementById('create-form');
 
-    if (createBurgerBtn) {
+    if (createBurgerBtn ) {
         createBurgerBtn.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -38,8 +45,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const changeDevourBtn = document.querySelectorAll('.change-burger')
 
-    if (changeSleepBtns) {
-        changeSleepBtns.forEach((button) => {
+    if (changeDevourBtn) {
+        changeDevourBtn.forEach((button) => {
             button.addEventListener('click', (e) => {
                 const id = e.target.getAttribute('data-id');
                 const newBurger = e.target.getAttribute('data-newburger')
@@ -48,7 +55,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     is_devoured = newBurger,
                 };
 
-                fetch(`/api/burgers/${id}`, {
+                fetch(`/api/burger/${id}`, {
                     method: "PUT",
                     headers: {
                         Accept: 'application/json',
@@ -71,13 +78,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Deleting a burger
 
+    // const deleteBurgerBtn = document.querySelectorAll('.delete-burger');
+
+    // deleteBurgerBtn.forEach((button) => {
+    //     button.addEventListener('click', (e) => {
+    //         const id = e.target.getAttribute('data-id');
+
+    //         fetch(`api/burger/delete/${id}`, {
+    //             method: 'DELETE',
+    //         }).then((res) => {
+    //             console.log(res);
+    //             console.log(`Deleted burger: ${id}`);
+
+    //             location.reload();
+    //         })
+    //     })
+    // })
+
+
     const deleteBurgerBtn = document.querySelectorAll('.delete-burger');
 
     deleteBurgerBtn.forEach((button) => {
         button.addEventListener('click', (e) => {
             const id = e.target.getAttribute('data-id');
 
-            fetch(`/api/burgers/${id}`, {
+            fetch(`api/burger/delete/${id}`, {
                 method: 'DELETE',
             }).then((res) => {
                 console.log(res);
@@ -87,6 +112,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             })
         })
     })
+
+
 })
 
 

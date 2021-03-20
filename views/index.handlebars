@@ -20,23 +20,27 @@
     </ul>
 
     <h2>Burgers that got me full! </h2>
-
-    <ul>
+<form id="delete-form" method="DELETE" action="api/burger/delete/:id">
+    <ul id="delete-list">
+      
       {{#each burger}}
       {{#if this.is_devoured}}
       <li>
         {{this.burger_name}}
      
-       <a href="api/burger/delete/:id"><button class="delete-burger" data-id="{{this.id}}">DELETE!</button></a>
+
+
+
+
+       {{!-- <a href="api/burger/delete/:id"><button class="delete-burger" onclick={{test}} data-id="{{this.id}}">DELETE!</button></a> --}}
       </li>
       {{/if}}
       {{/each}}
     </ul>
-
-
+</form>
     <h2>Add a burger!</h2>
 
-    <form id="create-form">
+    <form id="create-form" method="POST" action="/api/burger/create">
 
       <div class="form-group">
         <label for="ca">Burger Name</label>

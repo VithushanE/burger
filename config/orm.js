@@ -66,27 +66,23 @@ selectAll: function selectAll() {
 
 //updating 
 
-// update: function updateBurger(){
-//     var result2 = db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
-    
-//     return result2
-// },
+update: function updateBurger(id){
+
+    return db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
+},
 
 //deleting
 
-delete: function deleteBurger(){
-    var result3 = db.query( `DELETE FROM burgers WHERE id = ${id} ;`)
-    console.log(result3)
-    return result3
+delete: function deleteBurger(id){
+    return db.query( `DELETE FROM burgers WHERE id = ${id} ;`)    
 },
 
 //creating 
 
-// create: function createBurger(){
-//     var result4 = db.query(`INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false);`)
-//     console.log(result4)
-//     return result4
-// }
+create: function createBurger(burger_name){
+    return  db.query(`INSERT INTO burgers (burger_name, is_devoured) VALUES ('${burger_name}', false);`)
+    
+}
 }
   
   module.exports = orm;
