@@ -3,7 +3,7 @@
 // const orm = require('../config/orm.js');
 // const router = express.Router();
 // Importing model burger.js 
-const burger = require('../models/burger.js');
+
 
 // Creating routes within these routes
 
@@ -175,6 +175,8 @@ const burger = require('../models/burger.js');
 
 const express = require ('express')
 
+const burger = require('../models/burger.js');
+
 const router = express.Router();
 
 const orm = require("../config/orm")
@@ -196,14 +198,22 @@ router.post('/api/burger/create', async (req,res) =>{
     res.redirect('/')
 })
 
-router.post('/api/burger/id', async (req, res)=>{
-    const id = req.params.id 
-    console.log(id)
-    const updateBurger = await orm.update(id)
-    const burger = await orm.selectAll()
-    res.render('index', {burger: updateBurger}  )
+// router.post('/api/burger/id', async (req, res)=>{
+//     const id = req.params.id 
+//     console.log(id)
+//     const updateBurger = await orm.update(id)
+//     const burger = await orm.selectAll()
+//     res.render('index', {burger: updateBurger}  )
    
-    res.redirect('/')
+//     res.redirect('/')
+// })
+
+
+router.put('api/update', function (req,res) {
+    console.log(req.body)
+    burger.update(req.body.id, function (data){
+        res.json(data)
+    })
 })
 
 router.delete(`api/burger/delete/id`, async (req,res) =>{

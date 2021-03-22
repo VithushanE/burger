@@ -66,10 +66,21 @@ selectAll: function selectAll() {
 
 //updating 
 
-update: function updateBurger(id){
+// update: function updateBurger(id){
 
-    return db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
+//     return db.query(`UPDATE burgers SET is_devoured = true WHERE id = ${id} ;`)
+// },
+
+update: function(burgerId, cb){
+
+
+  db.query(`UPDATE burgers SET is_devoured = true WHERE id = ?`, [burgerId], (err,data) =>{
+      if(err) throw err;
+      cb(data)
+  })
 },
+
+
 
 //deleting
 

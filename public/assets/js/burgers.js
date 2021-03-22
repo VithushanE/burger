@@ -45,35 +45,85 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const changeDevourBtn = document.querySelectorAll('.change-burger')
 
-    if (changeDevourBtn) {
+    // if (changeDevourBtn) {
         changeDevourBtn.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.getAttribute('data-id');
-                const newBurger = e.target.getAttribute('data-newburger')
-
-                const newBurgerState = {
-                    is_devoured = newBurger,
-                };
-
-                fetch(`/api/burger/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-type': 'application/json',
-                    },
-                    body: JSON.stringify(newBurgerState),
-                }).then((response) => {
-                    if (response.ok) {
-                        console.log(`changed burger to ${newBurger}`);
-                        location.reload('/');
-                    } else {
-                        alert('something went wrong!')
-                    }
-                })
-
-            })
+            button.addEventListener('click', updatedDevoured) 
         })
-    }
+
+        function updatedDevoured(event){
+            console.log(event.target.dataset.id)
+        }
+        let updateBurger = {
+            id = event.target.dataset.id
+        }
+        fetch("/api/update", {
+            method: "PUT", 
+            headers: {
+                "Content-type": "application/json"
+            }, 
+            body: JSON.stringify(updateBurger)
+        }).then(data => {
+            location.reload
+        })
+      
+    
+        //         (e) => {
+        //         const id = e.target.getAttribute('data-id');
+        //         const newBurger = e.target.getAttribute('data-newburger')
+
+        //         const newBurgerState = {
+        //             is_devoured = newBurger,
+        //         };
+
+        //         fetch(`/api/burger/${id}`, {
+        //             method: "PUT",
+        //             headers: {
+        //                 Accept: 'application/json',
+        //                 'Content-type': 'application/json',
+        //             },
+        //             body: JSON.stringify(newBurgerState),
+        //         }).then((response) => {
+        //             if (response.ok) {
+        //                 console.log(`changed burger to ${newBurger}`);
+        //                 location.reload('/');
+        //             } else {
+        //                 alert('something went wrong!')
+        //             }
+        //         })
+
+        //     })
+        // })
+    // }
+
+    // changeDevourBtn.forEach((button) => {
+    //     button.addEventListener('click', (e) => {
+    //         const id = e.target.getAttribute('data-id');
+    //         const newBurger = e.target.getAttribute('data-newburger')
+
+    //         const newBurgerState = {
+    //             is_devoured = newBurger,
+    //         };
+
+    //         fetch(`/api/burger/update`, {
+    //             method: "PUT",
+    //             headers: {
+    //                 Accept: 'application/json',
+    //                 'Content-type': 'application/json',
+    //             },
+    //             body: JSON.stringify(newBurgerState),
+    //         }).then((response) => {
+    //             if (response.ok) {
+    //                 console.log(`changed burger to ${newBurger}`);
+    //                 location.reload('/');
+    //             } else {
+    //                 alert('something went wrong!')
+    //             }
+    //         })
+
+    //     })
+    // })
+
+
 
 
     // Deleting a burger
@@ -100,21 +150,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     deleteBurgerBtn.forEach((button) => {
         button.addEventListener('click', (e) => {
-            const id = e.target.getAttribute('dl');
+            const id = e.target.getAttribute('data-id');
 
             fetch(`api/burger/delete/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    Accept: 'application/json', 
-                    'content-type': 'application/json',
-                }, 
+                // headers: {
+                //     Accept: 'application/json', 
+                //     'content-type': 'application/json',
+                // }, 
 
-                body: JSON.stringify(id),
+                // body: JSON.stringify(id),
 
             }).then((res) => {
                 console.log(res);
-                document.getElementById('dl').value= '';
-                
+                // document.getElementById('dl').value= '';
+
                 console.log(`Deleted burger: ${id}`);
 
                 location.reload();

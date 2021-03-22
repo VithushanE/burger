@@ -1,3 +1,4 @@
+<div class="container" style="text-align: center;">
 <h1>Burger App!</h1>
 
   <h2>Burgers that need to be eaten!</h2>
@@ -13,24 +14,21 @@
           Devour now!
         </button>
 
-     </li>
+    </li>
 
       {{/unless}}
       {{/each}}
     </ul>
 
     <h2>Burgers that got me full! </h2>
-<form id="delete-form" method="delete" action="api/burger/delete/">
+
+<form id="delete-form" method="DELETE" action="api/burger/delete/">
     <ul id="delete-list">
       
       {{#each burger}}
       {{#if this.is_devoured}}
       <li id="dl" >
         {{this.burger_name}}
-     
-
-
-
 
 <button class="delete-burger" data-id="{{this.id}}">DELETE!</button>
       </li>
@@ -53,4 +51,4 @@
   
 
 
-
+</div>
